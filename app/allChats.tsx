@@ -1,26 +1,27 @@
 
+import BackButton from '@/components/BackButton'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import { router } from 'expo-router'
 import * as Icons from "phosphor-react-native"
 import React, { useState } from 'react'
-import { SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-
-const Chats = () => {
+const AllChats = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
 
     
-    <SafeAreaView edges={['top']} style={{flex:1, backgroundColor:colors.white}}>
+    <SafeAreaView style={{flex:1, backgroundColor:colors.white}}>
+
       <View style={styles.container}>
         <View style={styles.header}>
+            <BackButton iconSize={12} />
           <Text style={[styles.headerTitle, {position: 'absolute', width: '100%', textAlign: 'center', zIndex: -1}]}>Conversations</Text>
           <View style={{flex: 1}} />
           <TouchableOpacity style={styles.searchIcon} onPress={() => router.push('/message')}>
-            <Icons.NotePencilIcon size={verticalScale(10)} color={colors.neutral900} weight='bold'/>
+            <Icons.NotePencil size={verticalScale(10)} color={colors.neutral900} weight='bold'/>
           </TouchableOpacity>
         </View>
 
@@ -95,12 +96,11 @@ const Chats = () => {
   )
 }
 
-export default Chats
+export default AllChats
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
     paddingHorizontal:spacingX._20,
     marginTop:verticalScale(8),
   },

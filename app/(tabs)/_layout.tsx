@@ -1,38 +1,28 @@
-import "@walletconnect/react-native-compat";
-
-import CustomTabs from '@/components/CustomTabs';
-// import { useAuth } from '@/context/AuthContext'
-import { Tabs, useRouter } from 'expo-router';
+import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
-
-
-const _layout = () => {
-  // const { user, loading } = useAuth();
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!loading && !user) {
-  //     router.replace('/welcome');
-  //   }
-  // }, [user, loading]);
-  
+export default function TabLayout() {
   return (
-    <Tabs 
-      tabBar={CustomTabs} 
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Tabs.Screen name='index' options={{title:'Home'}}/>
-      <Tabs.Screen name='chats' options={{title:'Chats'}}/>
-      <Tabs.Screen name='activity' options={{title:'Activity'}}/>
-      <Tabs.Screen name='profile' options={{title:'Profile'}}/>
-    </Tabs>
-  )
+    <NativeTabs>
+      <NativeTabs.Trigger name="chats">
+        <Label>Chats</Label>
+        <Icon sf="note.text" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="index">
+        <Label>Home</Label>
+        <Icon sf="house.fill" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger>
+      
+      <NativeTabs.Trigger name="profile">
+        <Label>Profile</Label>
+        <Icon sf="person.fill" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger>
+      
+      
+      {/* <NativeTabs.Trigger name="message" role="search">
+        <Icon sf="square.and.pencil" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger> */}
+    </NativeTabs>
+  );
 }
-
-export default _layout
-
-const styles = StyleSheet.create({})

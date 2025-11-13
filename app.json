@@ -1,16 +1,18 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Zeph",
+    "slug": "zeph",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/zephlogo.png",
+    "scheme": "zeph",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.imknlb.myapp"
+      "bundleIdentifier": "com.imknlb.zephapp",
+      "buildNumber": "9",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +20,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.imknlb.myapp"
+      "package": "com.imknlb.zeph"
     },
     "web": {
       "bundler": "metro",
@@ -27,6 +29,8 @@
     },
     "plugins": [
       "expo-router",
+      "react-native-bottom-tabs",
+      ["@react-native-google-signin/google-signin"],
       [
         "expo-splash-screen",
         {
@@ -39,6 +43,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c2dd2e1f-9203-4dd4-8d3e-3febfddb0a29"
+      }
     }
   }
 }

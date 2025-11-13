@@ -1,13 +1,16 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import BackButton from '@/components/BackButton'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import * as Icons from "phosphor-react-native"
-import BackButton from '@/components/BackButton'
+import React from 'react'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+
+
+
 
 const Notifications = () => {
   return (
-    <SafeAreaView style={{flex:1, backgroundColor:colors.neutral900}}>
+    <SafeAreaView style={{flex:1, backgroundColor:colors.white}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <BackButton iconSize={12}/>
@@ -22,7 +25,7 @@ const Notifications = () => {
             
             <View style={styles.notification}>
               <View style={styles.notificationIcon}>
-                <Icons.ChatText size={verticalScale(12)} color={colors.white} weight='fill'/>
+                <Icons.ChatText size={verticalScale(12)} color={colors.black} weight='fill'/>
               </View>
               <View style={styles.notificationContent}>
                 <Text style={styles.notificationTitle}>New message from AI Companion</Text>
@@ -33,7 +36,7 @@ const Notifications = () => {
 
             <View style={styles.notification}>
               <View style={[styles.notificationIcon]}>
-                <Icons.Timer size={verticalScale(12)} color={colors.white} weight='fill'/>
+                <Icons.Timer size={verticalScale(12)} color={colors.black} weight='fill'/>
               </View>
               <View style={styles.notificationContent}>
                 <Text style={styles.notificationTitle}>Meditation Reminder</Text>
@@ -49,7 +52,7 @@ const Notifications = () => {
             
             <View style={styles.notification}>
               <View style={[styles.notificationIcon]}>
-                <Icons.Trophy size={verticalScale(12)} color={colors.white} weight='fill'/>
+                <Icons.Trophy size={verticalScale(12)} color={colors.black} weight='fill'/>
               </View>
               <View style={styles.notificationContent}>
                 <Text style={styles.notificationTitle}>Achievement Unlocked!</Text>
@@ -60,7 +63,7 @@ const Notifications = () => {
 
             <View style={styles.notification}>
               <View style={[styles.notificationIcon]}>
-                <Icons.Bell size={verticalScale(12)} color={colors.white} weight='fill'/>
+                <Icons.Bell size={verticalScale(12)} color={colors.black} weight='fill'/>
               </View>
               <View style={styles.notificationContent}>
                 <Text style={styles.notificationTitle}>New Feature Available</Text>
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: spacingY._10,
   },
   headerTitle: {
-    color: colors.neutral300,
+    color: colors.black,
     fontSize: 20,
     fontWeight:'600'
   },
@@ -108,20 +111,22 @@ const styles = StyleSheet.create({
     gap: spacingY._10,
   },
   groupTitle: {
-    color: colors.neutral400,
+    color: colors.black,
     fontSize: 14,
     fontWeight: '600',
     marginBottom: spacingY._5,
   },
   notification: {
     flexDirection: 'row',
-    backgroundColor: colors.neutral800,
+    backgroundColor: colors.neutral100,
+    borderWidth:1,
+    borderColor:colors.neutral300,
     borderRadius: 12,
     padding: spacingX._15,
     gap: spacingX._15,
   },
   notificationIcon: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     padding: spacingX._10,
     borderRadius: 50,
     alignSelf: 'flex-start',
@@ -131,16 +136,16 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   notificationTitle: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 16,
     fontWeight: '500',
   },
   notificationTime: {
-    color: colors.neutral500,
+    color: colors.neutral900,
     fontSize: 12,
   },
   notificationText: {
-    color: colors.neutral400,
+    color: colors.neutral900,
     fontSize: 14,
     marginTop: spacingY._5,
   }

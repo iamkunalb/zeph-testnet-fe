@@ -1,11 +1,10 @@
-import { colors, spacingY } from '@/constants/theme';
 import { verticalScale } from '@/utils/styling';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { router } from 'expo-router';
 import * as Icons from "phosphor-react-native";
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function CustomTabs({ state, descriptors, navigation }: BottomTabBarProps) {
-  const hiddenRoutes = ['chats']; // 👈 Add your screen names here
 
   // const currentRoute = state.routes[state.index].name;
   // if (hiddenRoutes.includes(currentRoute)) {
@@ -14,22 +13,31 @@ export default function CustomTabs({ state, descriptors, navigation }: BottomTab
 
   const tabBarIcons: any = {
     index: (isFocused: boolean) => (
-      <Icons.House size={verticalScale(12)} color={isFocused ? colors.primary : colors.white} weight={isFocused ? 'fill' : 'regular'} />
+      <Icons.House size={verticalScale(10)} color={isFocused ? '#000000' : '#9CA3AF'} weight={isFocused ? 'fill' : 'regular'} />
     ),
     chats: (isFocused: boolean) => (
-      <Icons.Chat size={verticalScale(12)} color={isFocused ? colors.primary : colors.white} weight={isFocused ? 'fill' : 'regular'} />
-    ),
-    activity: (isFocused: boolean) => (
-      <Icons.ChartLine size={verticalScale(12)} color={isFocused ? colors.primary : colors.white} weight={isFocused ? 'fill' : 'regular'} />
+      <View style={styles.newChatButton}>
+        <View style={styles.plusIconContainer}>
+          <Icons.Plus size={verticalScale(5)} color="#FFFFFF" weight="bold" />
+        </View>
+      </View>
     ),
     profile: (isFocused: boolean) => (
-      <Icons.User size={verticalScale(12)} color={isFocused ? colors.primary : colors.white} weight={isFocused ? 'fill' : 'regular'} />
+      <Icons.User size={verticalScale(10)} color={isFocused ? '#000000' : '#9CA3AF'} weight={isFocused ? 'fill' : 'regular'} />
     ),
+  };
+
+  const tabBarLabels: any = {
+    index: 'Home',
+    chats: 'New chat',
+    profile: 'Profile',
   };
 
   return (
     <View style={styles.tabBar}>
-      {state.routes.map((route, index) => {
+      {state.routes
+        .filter(route => route.name !== 'activity')
+        .map((route, index) => {
         const { options } = descriptors[route.key];
         const label: any =
           options.tabBarLabel !== undefined
@@ -41,6 +49,12 @@ export default function CustomTabs({ state, descriptors, navigation }: BottomTab
         const isFocused = state.index === index;
 
         const onPress = () => {
+          // Special handling for chats tab - navigate to message screen
+          if (route.name === 'chats') {
+            router.push('/message');
+            return;
+          }
+
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,
@@ -70,6 +84,12 @@ export default function CustomTabs({ state, descriptors, navigation }: BottomTab
             style={styles.tabBarItem}
           >
             {tabBarIcons[route.name] && tabBarIcons[route.name](isFocused)}
+            <Text style={[
+              styles.tabBarLabel,
+              { color: isFocused ? '#000000' : '#9CA3AF' }
+            ]}>
+              {tabBarLabels[route.name]}
+            </Text>
           </TouchableOpacity>
         );
       })}
@@ -77,22 +97,54 @@ export default function CustomTabs({ state, descriptors, navigation }: BottomTab
   );
 }
 
-
 const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     width: '100%',
-    height: verticalScale(38),
-    backgroundColor: colors.neutral800,
-    justifyContent:'space-around',
-    alignItems:'center',
-    borderTopColor:colors.neutral700,
-    borderTopWidth:1,
+    height: verticalScale(40),
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopColor: '#E5E7EB',
+    borderTopWidth: 1,
+    paddingBottom: verticalScale(15),
+    paddingTop: verticalScale(5),
   },
   tabBarItem: {
-    marginBottom:spacingY._5,
-    justifyContent:'center',
-    alignItems:'center',
-
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    gap: 4,
+  },
+  tabBarLabel: {
+    fontSize: 11,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  newChatButton: {
+    width: verticalScale(20),
+    height: verticalScale(20),
+    borderRadius: verticalScale(10),
+    backgroundColor: '#1F2937',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: verticalScale(5),
+  },
+  plusIconContainer: {
+    width: verticalScale(8),
+    height: verticalScale(8),
+    borderRadius: verticalScale(2),
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
